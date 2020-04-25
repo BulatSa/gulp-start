@@ -1,0 +1,12 @@
+# Node
+.idea
+node_modules
+test/results
+test/coverage
+package-lock.json
+
+## OS X
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes

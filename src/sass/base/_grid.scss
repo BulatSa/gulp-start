@@ -1,0 +1,195 @@
+%grid {
+	flex-shrink: 1;
+	max-width: 100%;
+}
+
+body {
+	&.lock {
+		height: auto;
+		overflow: hidden;
+	}
+}
+
+.hidden {
+	display: none !important;
+	&-xxl {
+		@include res(xxl) {
+			display: none!important;
+		}
+	}
+	&-xl {
+		@include res(xl) {
+			display: none!important;
+		}
+	}
+	&-l {
+		@include res(l) {
+			display: none!important;
+		}
+	}
+	&-m {
+		@include res(m) {
+			display: none!important;
+		}
+	}
+	&-s {
+		@include res(s) {
+			display: none!important;
+		}
+	}
+	&-xs {
+		@include res(xs) {
+			display: none!important;
+		}
+	}
+}
+
+.show {
+	display: none !important;
+	&-xxl {
+		display: none !important;
+		@include res(xxl) {
+			display: block!important;
+		}
+	}
+	&-xl {
+		display: none !important;
+		@include res(xl) {
+			display: block!important;
+		}
+	}
+	&-l {
+		display: none !important;
+		@include res(l) {
+			display: block!important;
+		}
+	}
+	&-m {
+		display: none !important;
+		@include res(m) {
+			display: block!important;
+		}
+	}
+	&-s {
+		display: none !important;
+		@include res(s) {
+			display: block!important;
+		}
+	}
+	&-xs {
+		display: none !important;
+		@include res(xs) {
+			display: block!important;
+		}
+	}
+}
+
+@for $i from 1 through 12 {
+	.grid-#{$i} {
+		@extend %grid;
+		width: 100% / 12 * $i;
+	}
+	.grid-off-#{$i} {
+		margin-left: 1 / 12 * $i * 100%;
+	}
+}
+
+@each $breakpoint, $value in $breakpoints {
+	@include res($breakpoint) {
+		@for $i from 0 through 12 {
+			.grid-#{$i}_#{$breakpoint} {
+				width: 100% / 12 * $i;
+			}
+			.grid-off-#{$i}_#{$breakpoint} {
+				margin-left: 1 / 12 * $i * 100%;
+			}
+		}
+	}
+}
+
+.container {
+	position: relative;
+	display: block;
+	width: 100%;
+	max-width: $container_width;
+	margin: 0 auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	@include res(m) {
+		max-width: 768px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -$gutter;
+	margin-right: -$gutter;
+	@include res(m) {
+		margin-left: -$gutter-mobile;
+		margin-right: -$gutter-mobile;
+	}
+
+	[class*="grid"] {
+		padding-left: $gutter;
+		padding-right: $gutter;
+		@include res(m) {
+			padding-left: $gutter-mobile;
+			padding-right: $gutter-mobile;
+		}
+	}
+
+	&--center {
+		align-items: center;
+	}
+	&--middle {
+		justify-content: center;
+	}
+}
+
+.row-ng {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.clearfix {
+	&:before {
+		content: " ";
+		display: table;
+	}
+	&:after {
+		content: " ";
+		display: table;
+		clear: both;
+	}
+}
+
+.img-responsive {
+	width: 100%;
+	height: auto;
+}
+
+.order-mob-first {
+	@include res(m) {
+		order: -1;
+	}
+}
+
+.order-mob-0 {
+	@include res(m) {
+		order: 0;
+	}
+}
+.order-mob-1 {
+	@include res(m) {
+		order: 1;
+	}
+}
+
+.order-mob-last {
+	@include res(m) {
+		order: 99;
+	}
+}

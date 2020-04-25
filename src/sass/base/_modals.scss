@@ -1,0 +1,51 @@
+body {
+	&.lock {
+		@include res(m) {
+			//position: fixed;
+			//left: 0;
+			//right: 0;
+			height: 100%;
+			//overflow: hidden;
+		}
+	}
+}
+
+.modal {
+	display: none;
+	width: 500px;
+	max-width: 100%;
+	will-change: transform, opacity;
+	overflow: visible !important;
+}
+
+.fancybox-slide--current {
+	.modal {
+
+	}
+}
+
+.fancybox-is-closing {
+	.modal {
+
+	}
+}
+
+.fancybox-bg {
+	background: #8c8e9a;
+}
+
+.fancybox-close-small, .fancybox-slide--image .fancybox-close-small, .fancybox-slide--video .fancybox-close-small, .fancybox-slide--iframe .fancybox-close-small,.fancybox-slide--html .fancybox-close-small {
+	@include cross();
+	opacity: 1;
+}
+
+.fancybox-slide--video,.fancybox-slide--html,.fancybox-slide--iframe {
+	padding: 24px 20px;
+	@include res(s){
+		padding: 20px 12px;
+	}
+}
+
+.fancybox-content{
+	overflow: visible !important;
+}
