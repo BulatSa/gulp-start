@@ -63,6 +63,7 @@ var banner = {
 
 // General
 var {gulp, src, dest, watch, series, parallel} = require('gulp');
+var babel = require('gulp-babel');
 var del = require('del');
 var flatmap = require('gulp-flatmap');
 var lazypipe = require('lazypipe');
@@ -120,7 +121,7 @@ var cleanDist = function (done) {
 // Repeated JavaScript tasks
 var jsTasks = lazypipe()
 	.pipe(header, banner.main, {package: package})
-	.pipe(optimizejs)
+	.pipe(babel, {presets: ['@babel/env']})
 	.pipe(dest, paths.scripts.output)
 	.pipe(rename, {suffix: '.min'})
 	.pipe(uglify)
