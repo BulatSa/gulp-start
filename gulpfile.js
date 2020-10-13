@@ -65,6 +65,7 @@ var banner = {
 var {gulp, src, dest, watch, series, parallel} = require('gulp');
 var babel = require('gulp-babel');
 var del = require('del');
+var plumber = require('gulp-plumber');
 var flatmap = require('gulp-flatmap');
 var lazypipe = require('lazypipe');
 var rename = require('gulp-rename');
@@ -153,10 +154,12 @@ var buildScripts = function (done) {
 
 					// Grab files that aren't polyfills, concatenate them, and process them
 					src([file.path + '/libs/*.js', '!' + file.path + '/*' + paths.scripts.polyfills])
+						.pipe(plumber())
 						.pipe(concat('libs.js'))
 						.pipe(jsTasks());
 
 					src([file.path + '/*.js', '!' + file.path + '/*' + paths.scripts.polyfills])
+						.pipe(plumber())
 						.pipe(concat(file.relative + '.js'))
 						.pipe(jsTasks());
 
@@ -165,10 +168,12 @@ var buildScripts = function (done) {
 				// Grab all files and concatenate them
 				// If separate polyfills enabled, this will have .polyfills in the filename
 				src([file.path + '/libs/*.js', '!' + file.path + '/*' + paths.scripts.polyfills])
+					.pipe(plumber())
 					.pipe(concat(file.relative + '.js'))
 					.pipe(jsTasks());
 
 				src(file.path + '/*.js')
+					.pipe(plumber())
 					.pipe(concat(file.relative + suffix + '.js'))
 					.pipe(jsTasks());
 
@@ -204,6 +209,7 @@ var buildStyles = function (done) {
 
 	// Run tasks on all Sass files
 	return src(paths.styles.input)
+		.pipe(plumber())
 		.pipe(sass({
 			outputStyle: 'expanded',
 			sourceComments: true
@@ -297,7 +303,7 @@ exports.default = series(
 		buildScripts,
 		//lintScripts,
 		buildStyles,
-		buildSVGs,
+		//buildSVGs,
 		htmlBuild,
 		copyFiles
 	)
