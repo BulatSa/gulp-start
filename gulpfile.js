@@ -78,7 +78,6 @@ var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var concat = require('gulp-concat');
 var uglify = require('gulp-terser');
-var optimizejs = require('gulp-optimize-js');
 
 // Styles
 var sass = require('gulp-sass');
@@ -126,7 +125,6 @@ var jsTasks = lazypipe()
 	.pipe(dest, paths.scripts.output)
 	.pipe(rename, {suffix: '.min'})
 	.pipe(uglify)
-	.pipe(optimizejs)
 	.pipe(header, banner.main, {package: package})
 	.pipe(dest, paths.scripts.output);
 
