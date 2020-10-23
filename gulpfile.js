@@ -121,7 +121,7 @@ var cleanDist = function (done) {
 // Repeated JavaScript tasks
 var jsTasks = lazypipe()
 	.pipe(header, banner.main, {package: package})
-	.pipe(babel, {presets: ['@babel/env']})
+	//.pipe(babel, {presets: ['@babel/env']})
 	.pipe(dest, paths.scripts.output)
 	.pipe(rename, {suffix: '.min'})
 	.pipe(uglify)
@@ -228,7 +228,8 @@ var buildStyles = function (done) {
 				}
 			})
 		]))
-		.pipe(dest(paths.styles.output));
+		.pipe(dest(paths.styles.output))
+		.pipe(browserSync.stream());
 
 };
 
@@ -284,7 +285,9 @@ var reloadBrowser = function (done) {
 
 // Watch for changes
 var watchSource = function (done) {
-	watch(paths.input, series(exports.default, reloadBrowser));
+	watch(paths.scripts.input, series(buildScripts, reloadBrowser));
+	watch(paths.styles.input, series(buildStyles));
+	watch(paths.copy.input, series(reloadBrowser));
 	done();
 };
 
